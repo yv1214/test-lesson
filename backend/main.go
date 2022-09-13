@@ -17,7 +17,7 @@ func queryString(w http.ResponseWriter, r *http.Request) {
     }
 
     // Create the database handle, confirm driver is present
-    db, _ := sql.Open("mysql", "root:lolol@tcp/test")
+    db, _ := sql.Open("mysql", "root:lolol@tcp(mariadb)/test")
     defer db.Close()
 
     var err error
@@ -36,7 +36,7 @@ func queryString(w http.ResponseWriter, r *http.Request) {
 
 func main() {
     // Create the database handle, confirm driver is present
-    db, _ := sql.Open("mysql", "root:lolol@tcp/test")
+    db, _ := sql.Open("mysql", "root:lolol@tcp(mariadb)/test")
     defer db.Close()
 
     // Connect and check the server version
@@ -45,6 +45,6 @@ func main() {
     fmt.Println("Connected to:", version)
 
     http.HandleFunc("/lol", queryString)
-    http.ListenAndServe("127.0.0.1:8090", nil)
+    http.ListenAndServe(":8090", nil)
 
 }
